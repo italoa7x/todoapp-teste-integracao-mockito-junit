@@ -1,6 +1,7 @@
 package repositories;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -63,5 +64,9 @@ public class TarefaRepository implements Serializable {
 			entityManager.getTransaction().rollback();
 			throw new Exception("Erro ao excluir tarefa.");
 		}
+	}
+	
+	public List<Tarefa> listarTarefas(){
+		return entityManager.createQuery("SELECT u FROM Tarefa u", Tarefa.class).getResultList();
 	}
 }

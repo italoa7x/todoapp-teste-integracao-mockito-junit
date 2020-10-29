@@ -1,9 +1,13 @@
 package br.ifpb.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -88,7 +92,7 @@ public class UsuarioTest {
 		usuario.setSenha("123");
 		usuario.setId(1);
 
-		// VAI DAR 'TRUE' PORQUE O USUARIO ERÁ PERSISTIDO
+		// VAI DAR 'TRUE' PORQUE O USUARIO ERÃ� PERSISTIDO
 		assertTrue(repositoryReal.atualizarDados(usuario).getNome().equals(usuario.getNome()));
 	}
 
@@ -125,5 +129,11 @@ public class UsuarioTest {
 
 		Mockito.when(repositoryStub.salvar(usuario)).thenReturn(true);
 		assertTrue(repositoryStub.salvar(usuario));
+	}
+
+	
+	@Test(expected = Exception.class)
+	public void testaListarMinhasTarefasPassandoUmIdQueNaoExisteNoBancoReal() throws Exception {
+		assertNull(repositoryReal.listarMinhasTarefas(10));
 	}
 }

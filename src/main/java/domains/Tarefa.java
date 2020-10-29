@@ -32,7 +32,7 @@ public class Tarefa implements Serializable {
 	@Column(nullable = false)
 	private String descricao;
 
-	@Column(nullable = false, name="dt_criacao")
+	@Column(nullable = false, name = "dt_criacao")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtCriacao;
 
@@ -42,6 +42,15 @@ public class Tarefa implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	private StatusTarefa status;
+
+	public Tarefa(Integer id, String nome, String descricao) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.status = StatusTarefa.CRIADA;
+		this.dtCriacao = new Date();
+	}
 
 	public Tarefa() {
 		this.status = StatusTarefa.CRIADA;

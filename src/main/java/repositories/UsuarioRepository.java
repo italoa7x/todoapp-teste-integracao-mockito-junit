@@ -1,9 +1,12 @@
 package repositories;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import domains.Tarefa;
 import domains.Usuario;
 
 /*
@@ -72,12 +75,22 @@ public class UsuarioRepository {
 	public Usuario buscaUsuarioPeloLogin(String login) throws Exception {
 		try {
 			Usuario usuarioEncontrado = (Usuario) entityManager
-					.createQuery("SELECT u FROM Usuario u WHERE u.login= :login")
-					.setParameter("login", login).getSingleResult();
-			
+					.createQuery("SELECT u FROM Usuario u WHERE u.login= :login").setParameter("login", login)
+					.getSingleResult();
+
 			return usuarioEncontrado;
 		} catch (Exception e) {
-			throw new Exception("Erro ao buscar usuário. " + e);
+			throw new Exception("Erro ao buscar usuario. " + e);
+		}
+	}
+
+	public List<Tarefa> listarMinhasTarefas(Integer usuarioId) throws Exception{
+		try {
+			Usuario usuario = (Usuario) entityManager.createQuery("SELECT u FROM Usuario u WHERE u.id = :id")
+					.setParameter("id", usuarioId).getSingleResult();
+			return usuario.getTarefa();
+		}catch(Exception e) {
+			throw new Exception("Erro ao buscar usuario. " + e);
 		}
 	}
 }
